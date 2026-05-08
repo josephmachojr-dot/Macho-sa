@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Macho sa | Kazi Zetu Zote</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {--navy:#1A1A40; --orange:#F7941D; --dark:#0F0F2D; --light:#F8F9FF; --white:#FFF;}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+        html{scroll-behavior:smooth;} body{color:var(--navy);background:var(--light);}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+        .top-bar{background:var(--dark);color:#ccc;padding:8px 5%;font-size:14px;display:flex;justify-content:space-between;align-items:center;}
+        .top-bar i{color:var(--orange);margin-right:8px;}
+        header{background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);box-shadow:0 5px 20px rgba(26,26,64,0.1);padding:1rem 5%;position:sticky;top:0;z-index:1000;}
+        nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:auto;}
+        .logo {display:flex; align-items:center; gap:15px; text-decoration:none;}
+        .logo-img {height:55px; width:auto; animation:float 3s ease-in-out infinite;}
+        .logo-text {font-size:30px; font-weight:900; color:var(--navy); line-height:1;}
+        .logo-text span {color:var(--orange);}
+        nav ul{display:flex;list-style:none;gap:2.5rem;}
+        nav a{color:var(--navy);text-decoration:none;font-weight:600;font-size:15px;position:relative;transition:0.3s;}
+        nav a:after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--orange);transition:0.3s;}
+        nav a:hover:after,nav a.active:after{width:100%;} nav a:hover,nav a.active{color:var(--orange);}
+        .btn-quote{background:linear-gradient(135deg,var(--orange),#ff6b00);color:var(--white);padding:14px 28px;border-radius:50px;text-decoration:none;font-weight:700;box-shadow:0 5px 20px rgba(247,148,29,0.4);transition:0.3s;}
+        .btn-quote:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(247,148,29,0.6);}
+        .page-hero{background:linear-gradient(135deg,var(--navy),var(--dark));color:var(--white);padding:120px 5% 80px;text-align:center;position:relative;overflow:hidden;}
+        .page-hero:before{content:'';position:absolute;top:-50%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,var(--orange) 0%,transparent 70%);opacity:0.15;animation:float 6s ease-in-out infinite;}
+        .page-hero h1{font-size:52px;font-weight:900;position:relative;z-index:2;}
+        .page-hero h1 span{color:var(--orange);} .page-hero p{font-size:18px;color:#ccc;margin-top:15px;position:relative;z-index:2;}
+        .portfolio{padding:100px 5%;max-width:1400px;margin:auto;}
+        .filter-btns{text-align:center;margin-bottom:50px;}
+        .filter-btn{background:var(--white);color:var(--navy);padding:12px 25px;border:2px solid var(--navy);border-radius:50px;margin:5px;cursor:pointer;font-weight:600;transition:0.3s;}
+        .filter-btn.active,.filter-btn:hover{background:var(--orange);color:var(--white);border-color:var(--orange);}
+        .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;}
+        .portfolio-item{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(26,26,64,0.08);transition:0.4s;position:relative;}
+        .portfolio-item:hover{transform:translateY(-15px);box-shadow:0 20px 60px rgba(247,148,29,0.25);}
+        .portfolio-item img{width:100%;height:280px;object-fit:cover;transition:0.4s;}
+        .portfolio-item:hover img{transform:scale(1.1);}
+        .portfolio-overlay{position:absolute;top:0;left:0;width:100%;height:280px;background:linear-gradient(135deg,rgba(26,26,64,0.9),rgba(247,148,29,0.8));display:flex;align-items:center;justify-content:center;opacity:0;transition:0.4s;}
+        .portfolio-item:hover .portfolio-overlay{opacity:1;}
+        .portfolio-overlay i{font-size:50px;color:var(--white);}
+        .portfolio-info{padding:2rem;} .portfolio-info h3{color:var(--navy);margin-bottom:10px;font-size:22px;font-weight:800;}
+        .portfolio-info p{color:#666;margin-bottom:15px;line-height:1.6;}
+        .tag{background:linear-gradient(135deg,var(--orange),#ff6b00);color:var(--white);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:700;display:inline-block;margin-right:8px;margin-bottom:8px;}
+        .cta{background:linear-gradient(135deg,var(--orange),#ff6b00);color:var(--white);padding:80px 5%;text-align:center;margin-top:80px;border-radius:20px;}
+        .cta h2{font-size:42px;margin-bottom:20px;font-weight:900;}
+        .cta .btn-white{background:var(--white);color:var(--navy);padding:16px 35px;border-radius:50px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:10px;transition:0.3s;}
+        .cta .btn-white:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.2);}
+        footer{background:var(--dark);color:#ccc;padding:3rem 5% 2rem;margin-top:50px;}
+        .footer-content{max-width:1400px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+        .footer-logo{font-size:28px;font-weight:900;color:var(--white);margin-bottom:15px;}
+        .footer-logo span{color:var(--orange);} .footer-col h4{color:var(--white);margin-bottom:20px;font-size:18px;}
+        .footer-col ul{list-style:none;} .footer-col li{margin-bottom:12px;}
+        .footer-col a{color:#ccc;text-decoration:none;transition:0.3s;} .footer-col a:hover{color:var(--orange);}
+        .footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid #333;}
+        .whatsapp{position:fixed;bottom:25px;right:25px;background:#25D366;color:white;width:65px;height:65px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:32px;box-shadow:0 5px 25px rgba(37,211,102,0.5);z-index:999;animation:float 3s ease-in-out infinite;transition:0.3s;}
+        .whatsapp:hover{transform:scale(1.1);box-shadow:0 8px 35px rgba(37,211,102,0.7);}
+        @media (max-width:1024px){.portfolio-grid{grid-template-columns:repeat(2,1fr);}.footer-content{grid-template-columns:1fr 1fr;}}
+        @media (max-width:768px){nav ul{display:none;}.portfolio-grid,.footer-content{grid-template-columns:1fr;}.page-hero h1{font-size:38px;}.logo-img{height:45px;}.logo-text{font-size:24px;}}
+    </style>
+</head>
+<body>
+    <div class="top-bar"><div><i class="fas fa-phone"></i> +255 713 773 616</div><div><i class="fas fa-envelope"></i> josephmachojr@gmail.com</div></div>
+    <header><nav>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Macho sa Logo" class="logo-img">
+            <div class="logo-text">MACHO <span>SA</span></div>
+        </a>
+    <ul><li><a href="index.html">HOME</a></li><li><a href="kuhusu.html">KUHUSU</a></li><li><a href="huduma.html">HUDUMA</a></li><li><a href="portfolio.html" class="active">PORTFOLIO</a></li><li><a href="blog.html">BLOG</a></li><li><a href="bei.html">BEI</a></li><li><a href="wasiliana.html">WASILIANA</a></li></ul>
+    <a href="https://wa.me/255713773616" class="btn-quote">PATA BEI <i class="fas fa-arrow-right"></i></a></nav></header>
+    
+    <section class="page-hero"><h1>Kazi Zetu <span>Halisi</span></h1><p>Website, POS, Graphics, Car Branding, T-Shirt Print, Brochure, Flyer - Yote tumeifanya</p></section>
+    
+    <section class="portfolio">
+    <div class="filter-btns">
+        <button class="filter-btn active">Zote</button>
+        <button class="filter-btn">Website</button>
+        <button class="filter-btn">E-Commerce</button>
+        <button class="filter-btn">Graphics</button>
+        <button class="filter-btn">Branding</button>
+    </div>
+    <div class="portfolio-grid">
+    
+    <!-- 1. E-COMMERCE WEBSITE -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="E-Commerce Website">
+        <div class="portfolio-overlay"><i class="fas fa-shopping-cart"></i></div>
+        <div class="portfolio-info">
+            <h3>Tygershark Electronics</h3>
+            <p>E-commerce kamili ya vifaa vya umeme. Payment M-Pesa + Delivery system.</p>
+            <span class="tag">E-Commerce</span>
+            <span class="tag">Website</span>
+        </div>
+    </div>
+    
+    <!-- 2. POS SYSTEM -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=600&h=400&fit=crop" alt="POS System">
+        <div class="portfolio-overlay"><i class="fas fa-cash-register"></i></div>
+        <div class="portfolio-info">
+            <h3>POS System - Duka la Nguo</h3>
+            <p>Mfumo wa mauzo offline. Inventory management, ripoti automatic, barcode scanner.</p>
+            <span class="tag">POS System</span>
+            <span class="tag">Software</span>
+        </div>
+    </div>
+    
+    <!-- 3. SALON WEBSITE -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop" alt="Salon Website">
+        <div class="portfolio-overlay"><i class="fas fa-cut"></i></div>
+        <div class="portfolio-info">
+            <h3>Salon ya Kisasa</h3>
+            <p>Booking website + Logo + Social media kit. Wateja wana-book online 24/7.</p>
+            <span class="tag">Website</span>
+            <span class="tag">Branding</span>
+        </div>
+    </div>
+    
+    <!-- 4. CAR BRANDING -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1605152274897-8f4b42a85e35?w=600&h=400&fit=crop" alt="Car Branding">
+        <div class="portfolio-overlay"><i class="fas fa-car"></i></div>
+        <div class="portfolio-info">
+            <h3>Car Branding - DHL Express</h3>
+            <p>Full vehicle wrap design + installation. Gari la matangazo la kuvutia wateja barabarani.</p>
+            <span class="tag">Car Branding</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    <!-- 5. LOGO DESIGN -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315ad06?w=600&h=400&fit=crop" alt="Logo Design">
+        <div class="portfolio-overlay"><i class="fas fa-pen-nib"></i></div>
+        <div class="portfolio-info">
+            <h3>Logo Design - Mama Ntilie</h3>
+            <p>Logo ya kisasa ya duka la nguo. Concepts 3, Revisions bure, Files zote za kitaalamu.</p>
+            <span class="tag">Logo Design</span>
+            <span class="tag">Branding</span>
+        </div>
+    </div>
+    
+    <!-- 6. T-SHIRT PRINT -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop" alt="T-Shirt Print">
+        <div class="portfolio-overlay"><i class="fas fa-tshirt"></i></div>
+        <div class="portfolio-info">
+            <h3>T-Shirt Print - Event 2026</h3>
+            <p>Design + Print ya T-Shirts 200+ kwa event. Screen printing quality ya juu.</p>
+            <span class="tag">T-Shirt Print</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    <!-- 7. BROCHURE -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop" alt="Brochure Design">
+        <div class="portfolio-overlay"><i class="fas fa-book-open"></i></div>
+        <div class="portfolio-info">
+            <h3>Brochure - Hotel Paradise</h3>
+            <p>Brochure ya kurasa 8, A4 size. Design ya kuvutia wageni, Print ready PDF.</p>
+            <span class="tag">Brochure</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    <!-- 8. FLYER -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop" alt="Flyer Design">
+        <div class="portfolio-overlay"><i class="fas fa-file-alt"></i></div>
+        <div class="portfolio-info">
+            <h3>Flyer - Sale Kubwa</h3>
+            <p>Flyer ya matangazo ya sale. Design ya kuvutia, A5 size, Print + Social media version.</p>
+            <span class="tag">Flyer</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    <!-- 9. RESTAURANT WEBSITE -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop" alt="Restaurant Website">
+        <div class="portfolio-overlay"><i class="fas fa-utensils"></i></div>
+        <div class="portfolio-info">
+            <h3>Restaurant Dar</h3>
+            <p>Menu online + Order system + WhatsApp ordering. Mauzo yameongezeka 200%.</p>
+            <span class="tag">Website</span>
+            <span class="tag">E-Commerce</span>
+        </div>
+    </div>
+    
+    <!-- 10. BUSINESS CARD -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1586074299757-dc655f18518c?w=600&h=400&fit=crop" alt="Business Card">
+        <div class="portfolio-overlay"><i class="fas fa-id-card"></i></div>
+        <div class="portfolio-info">
+            <h3>Business Cards - Law Firm</h3>
+            <p>Business cards za kitaalamu pande 2. Design ya expensive, Print ready.</p>
+            <span class="tag">Business Card</span>
+            <span class="tag">Branding</span>
+        </div>
+    </div>
+    
+    <!-- 11. SOCIAL MEDIA KIT -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop" alt="Social Media Kit">
+        <div class="portfolio-overlay"><i class="fas fa-share-alt"></i></div>
+        <div class="portfolio-info">
+            <h3>Social Media Kit - Boutique</h3>
+            <p>Posts 10 + Profile + Cover + Story templates. Brand inavutia Instagram.</p>
+            <span class="tag">Social Media</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    <!-- 12. BANNER -->
+    <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&h=400&fit=crop" alt="Banner Design">
+        <div class="portfolio-overlay"><i class="fas fa-flag"></i></div>
+        <div class="portfolio-info">
+            <h3>Roll-Up Banner - Conference</h3>
+            <p>Banner ya conference 2x1 meter. Design ya kuvutia, Print quality ya juu.</p>
+            <span class="tag">Banner</span>
+            <span class="tag">Graphics</span>
+        </div>
+    </div>
+    
+    </div>
+    </section>
+
+    <section class="cta">
+        <h2>Unataka Kazi Kama Hizi?</h2>
+        <p>Website, Logo, Car Branding, T-Shirt Print, Brochure, Flyer - Yote tunafanya. Tuma WhatsApp sasa upate bei ya kipekee!</p>
+        <a href="https://wa.me/255713773616?text=Habari%20Macho%20sa,%20nimeona%20portfolio%20yako%20nataka%20huduma" class="btn-white">TUMA WHATSAPP <i class="fab fa-whatsapp"></i></a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">MACHO <span>SA</span></div>
+                <p>For aim of creativity. Tunakujengea biashara ya kidigitali inayouza 24/7.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Huduma</h4>
+                <ul>
+                    <li><a href="huduma.html">Website Design</a></li>
+                    <li><a href="huduma.html">POS System</a></li>
+                    <li><a href="huduma.html">Graphics Design</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kampuni</h4>
+                <ul>
+                    <li><a href="kuhusu.html">Kuhusu Sisi</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Wasiliana</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +255 713 773 616</li>
+                    <li><i class="fas fa-envelope"></i> josephmachojr@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Dar es Salaam, TZ</li>
+                </ul>
+            </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Macho sa - for aim of creativity. Haki zote zimehifadhiwa.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/255713773616" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+</body>
+</html>
